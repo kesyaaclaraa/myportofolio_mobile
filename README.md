@@ -62,23 +62,6 @@ samples, guidance on mobile development, and a full API reference.
 
 ---
 
-### AI Disclosure & Dokumentasi Proyek
-
-#### 1. Transparansi Penggunaan AI & Tools
-* **Tools yang Digunakan**: Gemini AI (sebagai kolaborator AI pribadi) dan Visual Studio Code (sebagai IDE utama).
-* **Bagian yang Dibantu oleh AI**: 
-  * Perancangan struktur modular kode Flutter (pemisahan berkas `menu.dart` dari `main.dart`).
-  * Penyusunan logika model data `ItemHomepage` untuk penerapan kustomisasi warna kartu tombol secara dinamis tanpa pengulangan kode.
-  * Pembuatan draf jawaban untuk pertanyaan reflektif konseptual (seperti pemahaman *widget tree*, perbedaan *StatelessWidget* dan *StatefulWidget*, serta analisis *BuildContext*).
-* **Strategi Prompting**: Menggunakan pendekatan interaktif dan kontekstual berbasis studi kasus praktis, di mana AI diarahkan secara spesifik untuk mematuhi panduan modul praktikum PBP Universitas Indonesia.
-
-#### 2. Analisis Kritis & Perbaikan Manual
-Meskipun AI membantu mempercepat penulisan draf dan struktur dasar kode serta dokumentasi, beberapa aspek memerlukan penyesuaian dan verifikasi manual secara cermat:
-* **Penyesuaian Data Identitas**: Draf awal dari AI menggunakan data tiruan (seperti contoh *Burhan*), yang kemudian secara manual diganti dan disesuaikan sepenuhnya dengan data identitas pribadi pemilik portofolio yang akurat (NPM, Nama Lengkap, dan Kelas PBP).
-* **Validasi Sintaks & Analisis Kode**: Kode yang dihasilkan diuji secara langsung melalui terminal menggunakan perintah `flutter analyze` untuk memastikan kepatuhan terhadap standar linter Flutter hingga menghasilkan keluaran bersih tanpa peringatan (*No issues found!*).
-* **Pengujian Interaksi UI**: Memastikan bahwa fungsi `SnackBar` dan pewarnaan latar tombol merespons gestur sentuhan dengan mulus di lingkungan peramban Google Chrome tanpa adanya galat *runtime*.
----
-
 ### Tutorial 09 — Navigation, Layouts, Forms, and Input Elements
 
 Implementasi mengikuti `tutorial-9 (1).pdf` (27 halaman) dan melanjutkan proyek utama di direktori ini. Identitas Kesya Clara Dania, NPM 2506656892, kelas PBP C, serta warna tombol dari Tugas 7 dipertahankan.
@@ -137,7 +120,3 @@ Data proyek pada tutorial ini hanya ditampilkan di dialog, belum disimpan ke dat
 - Pastikan repositori bersifat publik.
 - Salin tautan **commit hasil akhir** berbentuk `https://github.com/kesyaaclaraa/myportofolio_mobile/commit/<hash-commit>` ke slot submisi SCELE; tautan repositori saja tidak memenuhi ketentuan PDF.
 - Tenggat Individual Assignment 8 yang disebut PDF: Senin, 23 November 2026 pukul 23.59 WIB. Tutorial 09 menjadi prasyarat penilaiannya.
-
-#### Transparansi bantuan AI untuk Tutorial 09
-
-Codex membantu membaca PDF, memetakan persyaratan, mengimplementasikan navigasi dan form, memperbarui struktur file dan dokumentasi, serta menyiapkan dan menjalankan pemeriksaan kode dan pengujian widget. Pengujian otomatis tidak menggantikan peninjauan pemilik proyek atau pengumpulan melalui SCELE.
