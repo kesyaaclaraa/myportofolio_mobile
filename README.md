@@ -77,3 +77,67 @@ Meskipun AI membantu mempercepat penulisan draf dan struktur dasar kode serta do
 * **Penyesuaian Data Identitas**: Draf awal dari AI menggunakan data tiruan (seperti contoh *Burhan*), yang kemudian secara manual diganti dan disesuaikan sepenuhnya dengan data identitas pribadi pemilik portofolio yang akurat (NPM, Nama Lengkap, dan Kelas PBP).
 * **Validasi Sintaks & Analisis Kode**: Kode yang dihasilkan diuji secara langsung melalui terminal menggunakan perintah `flutter analyze` untuk memastikan kepatuhan terhadap standar linter Flutter hingga menghasilkan keluaran bersih tanpa peringatan (*No issues found!*).
 * **Pengujian Interaksi UI**: Memastikan bahwa fungsi `SnackBar` dan pewarnaan latar tombol merespons gestur sentuhan dengan mulus di lingkungan peramban Google Chrome tanpa adanya galat *runtime*.
+---
+
+### Tutorial 09 — Navigation, Layouts, Forms, and Input Elements
+
+Implementasi mengikuti `tutorial-9 (1).pdf` (27 halaman) dan melanjutkan proyek utama di direktori ini. Identitas Kesya Clara Dania, NPM 2506656892, kelas PBP C, serta warna tombol dari Tugas 7 dipertahankan.
+
+#### Analisis dan pemetaan persyaratan
+
+| Bagian PDF | Implementasi |
+| --- | --- |
+| Navigasi, hlm. 2–4 | `Navigator.push()` pada kartu Tambah Proyek; `Navigator.pushReplacement()` pada kedua tujuan drawer; `Navigator.pop()` untuk menutup drawer dan dialog. Back sistem dari form yang dibuka melalui kartu kembali ke menu. |
+| Layout, hlm. 4–8 | Menu menggunakan Row, Expanded, Column, Padding, SizedBox, dan GridView; form dan dialog menggunakan SingleChildScrollView; drawer menggunakan ListView. Contoh Stack dan daftar proyek pada bagian teori menjelaskan alternatif layout, bukan halaman tambahan yang diwajibkan. |
+| Paket Material, hlm. 9 | Seluruh file Dart pada `lib/` dan `test/` memakai `package:material_ui/material_ui.dart`. Dependensi `material_ui` sudah ditambahkan ke pubspec sebelum pengerjaan tutorial ini. |
+| Drawer, hlm. 9–13 | `LeftDrawer` memiliki header My Portfolio, deskripsi, Home, dan Add Project. Drawer terpasang pada Scaffold menu dan form dengan ikon putih pada AppBar. |
+| Form, hlm. 13–21 | `ProjectFormPage` berupa StatefulWidget; `Form` memakai `GlobalKey<FormState>` dan konten dapat digulir. Lima isian: nama, deskripsi, kategori, teknologi, dan tautan. |
+| Validasi, hlm. 16–19 | Nama dan deskripsi wajib diisi; input yang hanya berisi spasi ditolak. Deskripsi menyediakan lima baris. Teknologi dan tautan boleh kosong sesuai contoh tutorial. |
+| Kategori, hlm. 17–18 | Dropdown memakai `initialValue`, default Web Development; pilihan lainnya Mobile Development, Machine Learning, Data Science, dan Other. |
+| Simpan dan dialog, hlm. 19–24 | Save menjalankan validasi sebelum menampilkan AlertDialog berjudul “Proyek berhasil ditambahkan!”. Dialog menampilkan kelima nilai dan kontennya dapat digulir. OK menutup dialog serta mengosongkan input dan state, termasuk mengembalikan kategori ke Web Development. |
+| Tombol menu, hlm. 24–25 | Ketiga tombol tetap menampilkan SnackBar. Tambah Proyek juga membuka form melalui MaterialPageRoute dan `push()`. |
+| Refactoring, hlm. 25–26 | Halaman berada di `screens/`; ItemCard dipindahkan ke `widgets/project_card.dart`; seluruh import terkait diperbarui. Tidak ada komentar latihan yang belum dilengkapi pada kode aplikasi. |
+| Pengumpulan, hlm. 27 | Memerlukan commit yang di-push ke repositori GitHub publik dan tautan commit tersebut dikirim melalui SCELE. Tautan commit hasil akhir perlu dikirim oleh pemilik proyek melalui SCELE. |
+
+Contoh PDF pada halaman 12 memiliki penempatan `drawer` dan tanda baca yang tidak lengkap. Implementasi menempatkan `drawer` pada `Scaffold`, sesuai penjelasan tutorial dan API widget. Nilai awal dropdown dibuat tetap agar reset benar-benar kembali ke kategori default; variabel state juga dihapus agar pengiriman kedua tidak menampilkan data lama.
+
+```text
+lib/
+├── main.dart
+├── screens/
+│   ├── menu.dart
+│   └── project_form.dart
+└── widgets/
+    ├── left_drawer.dart
+    └── project_card.dart
+```
+
+#### Menjalankan dan memeriksa aplikasi
+
+Jalankan perintah dari root proyek ini, bukan subfolder duplikat `myportofolio_mobile/`:
+
+```sh
+flutter pub get
+flutter analyze --no-pub
+flutter test --no-pub
+flutter run
+```
+
+Pengujian widget pada `test/widget_test.dart` mencakup identitas dan SnackBar, navigasi push dan Back sistem, penggantian route lewat drawer pada kedua arah, penolakan isian kosong/spasi, lima pilihan kategori, isi dialog, pengiriman ulang setelah reset, field opsional, serta layar 320 × 568 tanpa overflow.
+
+Untuk pemeriksaan manual, buka Tambah Proyek dari kartu, isi kelima field, tekan Save, periksa dialog, lalu tekan OK. Pastikan input kosong dan kategori kembali ke Web Development. Gunakan Back sistem untuk kembali ke menu. Coba juga Home dan Add Project melalui drawer; perpindahan ini mengganti route aktif.
+
+Data proyek pada tutorial ini hanya ditampilkan di dialog, belum disimpan ke database atau dikirim ke REST API. Integrasi backend dan form bagian portofolio lain yang disebut sebagai Individual Assignment 8 berada di luar implementasi Tutorial 09.
+
+#### Pengumpulan sesuai PDF
+
+- Tenggat Tutorial 09: **Rabu, 18 November 2026 pukul 23.59 WIB**.
+- Repositori tujuan yang terkonfigurasi: `https://github.com/kesyaaclaraa/myportofolio_mobile`.
+- Tinjau perubahan, buat commit hasil akhir, kemudian push sebelum tenggat.
+- Pastikan repositori bersifat publik.
+- Salin tautan **commit hasil akhir** berbentuk `https://github.com/kesyaaclaraa/myportofolio_mobile/commit/<hash-commit>` ke slot submisi SCELE; tautan repositori saja tidak memenuhi ketentuan PDF.
+- Tenggat Individual Assignment 8 yang disebut PDF: Senin, 23 November 2026 pukul 23.59 WIB. Tutorial 09 menjadi prasyarat penilaiannya.
+
+#### Transparansi bantuan AI untuk Tutorial 09
+
+Codex membantu membaca PDF, memetakan persyaratan, mengimplementasikan navigasi dan form, memperbarui struktur file dan dokumentasi, serta menyiapkan dan menjalankan pemeriksaan kode dan pengujian widget. Pengujian otomatis tidak menggantikan peninjauan pemilik proyek atau pengumpulan melalui SCELE.
