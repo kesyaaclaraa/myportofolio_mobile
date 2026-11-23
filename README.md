@@ -120,3 +120,53 @@ Data proyek pada tutorial ini hanya ditampilkan di dialog, belum disimpan ke dat
 - Pastikan repositori bersifat publik.
 - Salin tautan **commit hasil akhir** berbentuk `https://github.com/kesyaaclaraa/myportofolio_mobile/commit/<hash-commit>` ke slot submisi SCELE; tautan repositori saja tidak memenuhi ketentuan PDF.
 - Tenggat Individual Assignment 8 yang disebut PDF: Senin, 23 November 2026 pukul 23.59 WIB. Tutorial 09 menjadi prasyarat penilaiannya.
+
+---
+
+### Tugas 8
+
+1. **Perbedaan navigasi dan penggunaannya.** `Navigator.push()` menambahkan route di atas stack sehingga route sebelumnya dapat dibuka kembali dengan Back. `Navigator.pushReplacement()` mengganti route aktif; route yang diganti tidak menjadi tujuan Back. `Navigator.pop()` mengeluarkan route teratas, misalnya menutup dialog atau drawer. Kartu **Tambah Edukasi** menggunakan `push()` dengan `MaterialPageRoute`, sehingga Back perangkat kembali ke menu. Opsi **Home** menutup drawer memakai `pop()`, lalu mengganti halaman aktif dengan `MyHomePage` melalui `pushReplacement()`. Home juga dapat digunakan ketika menjalankan aplikasi di Chrome.
+
+2. **Struktur halaman dan tema.** `Scaffold` menyediakan kerangka halaman, `AppBar` menampilkan judul, dan `Drawer` menyediakan tujuan navigasi bersama. Menu, form proyek, dan form edukasi memakai komponen `LeftDrawer` yang sama, dengan opsi Home, Add Project, dan Tambah Edukasi. AppBar menu dan edukasi mengambil `Theme.of(context).colorScheme.primary` dari tema indigo di `main.dart`; tombol Simpan edukasi menggunakan warna tema yang sama dan teks putih.
+
+3. **Alasan pemilihan layout.** Form edukasi menggunakan `Column` agar kolom dibaca berurutan dari atas ke bawah. `Padding` 16 piksel memberi ruang dari tepi layar, sedangkan `SizedBox` memisahkan judul, petunjuk, dan input. `SingleChildScrollView` memungkinkan pengguna menjangkau semua input serta tombol Simpan saat layar sempit atau keyboard mengurangi ruang yang tersedia. `Scaffold` menyesuaikan area body saat keyboard muncul. Isi dialog juga dapat digulir agar ringkasan panjang tetap terbaca.
+
+4. **Validasi formulir.** `GlobalKey<FormState>` memberi akses ke state `Form`. Saat Simpan ditekan, `validate()` menjalankan seluruh `validator` dan menampilkan pesan pada kolom terkait. Dialog hanya dibuka jika semuanya valid. Institusi dan program studi wajib diisi, input spasi ditolak, dan panjang dibatasi 100 karakter setelah trim. Tahun wajib berupa empat digit antara 1900 dan tahun berjalan; tahun selesai tidak boleh mendahului tahun mulai. Contohnya, tahun mulai `2024` dan tahun selesai `2023` ditolak. `TextInputType.number` hanya memilih keyboard yang sesuai, bukan menjamin data valid; teks hasil paste atau input keyboard fisik tetap harus diperiksa.
+
+#### Implementasi dan cara mencoba
+
+Bagian portofolio yang dipilih adalah **riwayat edukasi yang telah diselesaikan**. Halaman baru berada di `lib/screens/education_form.dart`, menggunakan `StatefulWidget`, `Form`, dan `GlobalKey<FormState>`. Empat atributnya adalah nama institusi, program studi, tahun mulai, dan tahun selesai. Tahun disimpan sebagai input tahun, sehingga memakai keyboard angka. Form ini tidak memiliki atribut tanggal lengkap atau URL.
+
+1. Jalankan `flutter pub get`, kemudian `flutter run` dari direktori utama repositori.
+2. Tekan kartu **Tambah Edukasi** atau pilih **Tambah Edukasi** pada drawer.
+3. Tekan **Simpan** tanpa mengisi data untuk melihat pesan kesalahan; coba juga spasi, nama di atas 100 karakter, tahun bukan angka, atau urutan tahun terbalik.
+4. Isi contoh valid: `SMA Contoh`, `IPA`, `2022`, `2025`. Tekan Simpan untuk melihat seluruh nilai dalam dialog. **Tutup** mengembalikan pengguna ke form dengan isian tetap tersedia untuk diedit. Data hanya ditampilkan dalam dialog dan belum disimpan secara permanen.
+5. Gunakan Back perangkat setelah membuka form dari kartu. Gunakan **Home** pada drawer untuk kembali ke menu di Chrome. Opsi **Add Project** tetap membuka form proyek sebelumnya.
+6. Ulangi pada layar ponsel dengan keyboard terbuka; gulir sampai tombol Simpan.
+
+Pemeriksaan otomatis:
+
+```sh
+flutter analyze --no-pub
+flutter test --no-pub
+```
+
+`test/education_form_test.dart` mencakup akses kartu dan Back, drawer menuju edukasi/proyek/Home, semua aturan validasi, isi dialog dan perubahan isian setelah dialog ditutup, serta layar 320 × 568 dengan inset keyboard. Pengujian tutorial sebelumnya tetap berada di `test/widget_test.dart`.
+
+#### Keterangan penggunaan AI dan log prompting
+
+ Dalam pengerjaan Tugas 8, saya menggunakan OpenAI Codex sebagai alat bantu untuk memahami konsep Flutter, memberikan saran implementasi, serta membantu mengidentifikasi dan memperbaiki kesalahan pada kode.
+
+AI juga digunakan untuk membantu memahami penggunaan widget, navigasi antarhalaman, dan validasi formulir. Hasil bantuan AI tetap ditinjau dan disesuaikan dengan kebutuhan tugas serta materi yang telah dipelajari.
+
+Contoh prompt yang digunakan:
+
+"Bantu jelaskan cara membuat form input menggunakan StatefulWidget dan GlobalKey<FormState> di Flutter."
+
+"Bagaimana cara melakukan validasi input tahun agar tahun selesai tidak lebih kecil dari tahun mulai?"
+
+"Bantu periksa kode Flutter saya dan berikan saran perbaikan jika terdapat error."
+
+"Jelaskan penggunaan Navigator.push dan Navigator.pushReplacement untuk navigasi antarhalaman."
+
+Peran AI: Sebagai alat bantu pembelajaran, referensi teknis, dan debugging dalam proses pengembangan aplikasi.
