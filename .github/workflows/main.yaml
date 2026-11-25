@@ -24,6 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # AGP 9.x / Gradle 9.x need a newer JDK than the runner's default.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
