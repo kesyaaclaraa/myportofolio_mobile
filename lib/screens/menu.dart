@@ -1,23 +1,28 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
 
   final String npm = "2506656892";
   final String nama = "Kesya Clara Dania";
   final String kelas = "PBP C";
 
-  final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Proyek", Icons.folder, Colors.blue),
-    ItemHomepage("Tambah Proyek", Icons.add_circle, Colors.green),
-    ItemHomepage("Tambah Edukasi", Icons.school, Colors.deepPurple),
-    ItemHomepage("Logout", Icons.logout, Colors.red),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = context.watch<AuthState>().isLoggedIn;
+    final items = [
+      ItemHomepage("Lihat Proyek", Icons.folder, Colors.blue),
+      ItemHomepage("Tambah Proyek", Icons.add_circle, Colors.green),
+      ItemHomepage("Tambah Edukasi", Icons.school, Colors.deepPurple),
+      isLoggedIn
+          ? ItemHomepage("Logout", Icons.logout, Colors.red)
+          : ItemHomepage("Login", Icons.login, Colors.teal),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(

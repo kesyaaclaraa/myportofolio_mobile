@@ -1,6 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:myportofolio_mobile/main.dart';
+
+import 'helpers.dart';
+
 import 'package:myportofolio_mobile/screens/education_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
@@ -27,7 +29,7 @@ void main() {
   testWidgets('Education card pushes form and device back returns home', (
     tester,
   ) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(FakeBackend().app());
     await tester.tap(find.text('Tambah Edukasi'));
     await tester.pumpAndSettle();
     expect(find.byType(EducationFormPage), findsOneWidget);
@@ -43,7 +45,7 @@ void main() {
   testWidgets('Shared drawer opens education, projects, and home', (
     tester,
   ) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(FakeBackend().app(initialToken: validToken));
     await openDrawer(tester);
     await tester.tap(find.text('Tambah Edukasi').last);
     await tester.pumpAndSettle();
@@ -151,7 +153,7 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(FakeBackend().app());
     await tester.ensureVisible(find.text('Tambah Edukasi'));
     await tester.tap(find.text('Tambah Edukasi'));
     await tester.pumpAndSettle();
